@@ -6,6 +6,7 @@ public class Test {
 
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo=true;
+        int count =0;
         while (bo){
             System.out.println("请输入用户名:");
 
@@ -32,22 +33,34 @@ public class Test {
                         System.out.print("\t" + product.getPrice());
                         System.out.println("\t" + product.getDesc());
                         }
-                        int count =0;
-                        Product products1[]=new Product[5];
-                        System.out.println("请输入商品ID");
-                        String pId=sc.next();
-                        ReadProductExcel readProductExcel1=new ReadProductExcel();
-                        inPro=null;
-                        inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
-                        Product product=readProductExcel1.getProductById(pId,inPro);
-                    if(product!=null){
-                            products1[count++]=product;
-                            System.out.println("找到了该商品");
-                            System.out.println("你购买的商品数量为"+count);
-
+                    boolean bo1=true;
+                    while (bo1){
+                    Product products1[]=new Product[5];
+                    System.out.println("请输入商品ID");
+                    String pId=sc.next();
+                    ReadProductExcel readProductExcel1=new ReadProductExcel();
+                    inPro=null;
+                    inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                    Product product=readProductExcel1.getProductById(pId,inPro);
+                    if(product!=null) {
+                        count++;
+                        products1[count] = product;
+                        System.out.println("找到了该商品");
+                        System.out.println("你购买的商品数量为" + count);
                     }
-
-
+                    else {
+                        System.out.println("没有该商品");
+                    }
+                    System.out.println("是否继续购买商品，请输入yes or no");
+                    String yn=sc.next();
+                    if (yn.equals("yes"))
+                    {
+                        bo1=true;
+                    }
+                    else {
+                        bo1=false;
+                    }
+                    }
                     bo=false;
                     break;
                 } else {
