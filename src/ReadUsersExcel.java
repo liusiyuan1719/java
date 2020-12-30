@@ -10,39 +10,39 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
-public class ReaProductExcel{
+public class ReadUsersExcel {
     /*
     readExcel是什么方法？成员方法
      */
-    public Product[] readExcel(InputStream in) {
-        Product products[] = null;
+    public User[] readExcel(InputStream in) {
+        User users[] = null;
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
-            products = new Product[xs.getLastRowNum()];
+            users = new User[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
-                Product product = new Product();
+                User user = new User();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
                         continue;
                     if (k == 0) {
-                        product.setId(this.getValue(cell));
+                        user.setUsername(this.getValue(cell));
                     } else if (k == 1) {
-                        product.setProductname(this.getValue(cell));
+                        user.setPassword(this.getValue(cell));
                     } else if (k == 2) {
-                        product.setPrice(this.getValue(cell));
+                        user.setAddress(this.getValue(cell));
                     } else if (k == 3) {
-                        product.setDesc(this.getValue(cell));
+                        user.setPhone(this.getValue(cell));
                     }
-                    products[j-1]=product;
+                    users[j-1]=user;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return products;
+        return users;
     }
 
     private String getValue(XSSFCell cell) {

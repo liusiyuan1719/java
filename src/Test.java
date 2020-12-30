@@ -1,6 +1,7 @@
 import java.io.InputStream;
 import java.util.Scanner;
 import java.io.File;
+
 public class Test {
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo=true;
@@ -14,13 +15,23 @@ public class Test {
             System.out.println("请输入你的密码:");
             String password=sc.next();
 
+            InputStream inPro=Class.forName("Test").getResourceAsStream("product.xlsx");
             InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");
             //File file=new File("C:\\Users\\151509\\IdeaProjects\\java\\src\\users.xlsx");
-            ReadExcel readExcel=new ReadExcel();
+            ReadUsersExcel readExcel=new ReadUsersExcel();
             User users[]=readExcel.readExcel(in);
             for (int i=0; i<users.length;i++) {
                 if (uername.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     System.out.println("登陆成功");
+                    ReadProductExcel readProductExcel=new ReadProductExcel();
+                    Product products[] =readProductExcel.getAllProductExcel(inPro);
+                    for (Product product:products){
+                        System.out.print(product.getId());
+                        System.out.print("\t"+product.getProductname());
+                        System.out.print("\t"+product.getPrice());
+                        System.out.println("\t"+product.getDesc());
+                    }
+
                     bo=false;
                     break;
                 } else {

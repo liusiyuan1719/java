@@ -10,41 +10,70 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
-public class ReadExcel {
+public class ReadProductExcel {
     /*
     readExcel是什么方法？成员方法
      */
-    public User[] readExcel(InputStream in) {
-        User users[] = null;
+    public Product getProductById(String id,InputStream in) {
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
-            users = new User[xs.getLastRowNum()];
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
-                User user = new User();
+                Product product = new Product();
                 for (int k = 0; k <= row.getLastCellNum(); k++) {
                     XSSFCell cell = row.getCell(k);
                     if (cell == null)
                         continue;
                     if (k == 0) {
-                        user.setUsername(this.getValue(cell));
+                        product.setId(this.getValue(cell));
                     } else if (k == 1) {
-                        user.setPassword(this.getValue(cell));
+                        product.setProductname(this.getValue(cell));
                     } else if (k == 2) {
-                        user.setAddress(this.getValue(cell));
+                        product.setPrice(this.getValue(cell));
                     } else if (k == 3) {
-                        user.setPhone(this.getValue(cell));
+                        product.setDesc(this.getValue(cell));
                     }
-                    users[j-1]=user;
+                }
+                if (id.equals(product.getId())){
+                    return product;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return users;
+        return null;
     }
-
+    public Product[] getAllProductExcel(InputStream inPro) {
+        Product products[] = null;
+        try {
+            XSSFWorkbook xw = new XSSFWorkbook(inPro);
+            XSSFSheet xs = xw.getSheetAt(0);
+            products = new Product[xs.getLastRowNum()];
+            for (int j = 1; j <= xs.getLastRowNum(); j++) {
+                XSSFRow row = xs.getRow(j);
+                Product product = new Product();
+                for (int k = 0; k <= row.getLastCellNum(); k++) {
+                    XSSFCell cell = row.getCell(k);
+                    if (cell == null)
+                        continue;
+                    if (k == 0) {
+                        product.setId(this.getValue(cell));
+                    } else if (k == 1) {
+                        product.setProductname(this.getValue(cell));
+                    } else if (k == 2) {
+                        product.setPrice(this.getValue(cell));
+                    } else if (k == 3) {
+                        product.setDesc(this.getValue(cell));
+                    }
+                    products[j-1]=product;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
     private String getValue(XSSFCell cell) {
         String value;
         CellType type = cell.getCellTypeEnum();
@@ -74,4 +103,6 @@ public class ReadExcel {
         }
         return value;
     }
+
+
 }
