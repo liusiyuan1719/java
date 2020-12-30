@@ -32,6 +32,8 @@ public class Test {
                         System.out.print("\t" + product.getPrice());
                         System.out.println("\t" + product.getDesc());
                         }
+                        int count =0;
+                        Product products1[]=new Product[5];
                         System.out.println("请输入商品ID");
                         String pId=sc.next();
                         ReadProductExcel readProductExcel1=new ReadProductExcel();
@@ -39,7 +41,9 @@ public class Test {
                         inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
                         Product product=readProductExcel1.getProductById(pId,inPro);
                     if(product!=null){
+                            products1[count++]=product;
                             System.out.println("找到了该商品");
+                            System.out.println("你购买的商品数量为"+count);
 
                     }
 
