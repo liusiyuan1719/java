@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Test {
+
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo=true;
         while (bo){
@@ -25,12 +26,23 @@ public class Test {
                     System.out.println("登陆成功");
                     ReadProductExcel readProductExcel=new ReadProductExcel();
                     Product products[] =readProductExcel.getAllProductExcel(inPro);
-                    for (Product product:products){
+                    for (Product product:products) {
                         System.out.print(product.getId());
-                        System.out.print("\t"+product.getProductname());
-                        System.out.print("\t"+product.getPrice());
-                        System.out.println("\t"+product.getDesc());
+                        System.out.print("\t" + product.getProductname());
+                        System.out.print("\t" + product.getPrice());
+                        System.out.println("\t" + product.getDesc());
+                        }
+                        System.out.println("请输入商品ID");
+                        String pId=sc.next();
+                        ReadProductExcel readProductExcel1=new ReadProductExcel();
+                        inPro=null;
+                        inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        Product product=readProductExcel1.getProductById(pId,inPro);
+                    if(product!=null){
+                            System.out.println("找到了该商品");
+
                     }
+
 
                     bo=false;
                     break;
