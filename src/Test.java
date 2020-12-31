@@ -46,6 +46,10 @@ public class Test {
                         count++;
                         products1[count] = product;
                         System.out.println("找到了该商品");
+                        System.out.print(product.getId());
+                        System.out.print("\t" + product.getProductname());
+                        System.out.print("\t" + product.getPrice());
+                        System.out.println("\t" + product.getDesc());
                         System.out.println("你购买的商品数量为" + count);
                     }
                     else {
