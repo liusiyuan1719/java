@@ -34,12 +34,12 @@ public class Test {
                         System.out.println("\t" + product.getDesc());
                         }
                     boolean bo1=true;
-
+                    Product carts[]=new Product[10];
                     while (bo1){
-                        Product carts[]=new Product[10];
                         System.out.println("请输入商品ID");
                         String pId=sc.next();
                         ReadProductExcel readProductExcel1=new ReadProductExcel();
+
                         inPro=null;
                         inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
                         Product product=readProductExcel1.getProductById(pId,inPro);
@@ -75,18 +75,20 @@ public class Test {
                         else {
                             System.out.println("你购买的商品数量为" + count);
                             for (int j=0;j<carts.length;j++){
-                                System.out.print(carts[j].getId());
-                                System.out.print("\t" + carts[j].getProductname());
-                                System.out.print("\t" + carts[j].getPrice());
-                                System.out.println("\t" + carts[j].getDesc());
+                                if (carts[j]!=null) {
+                                    System.out.print(carts[j].getId());
+                                    System.out.print("\t" + carts[j].getProductname());
+                                    System.out.print("\t" + carts[j].getPrice());
+                                    System.out.println("\t" + carts[j].getDesc());
+                                }
                             }
-
                             bo1=false;
                         }
                     }
                     bo=false;
                     break;
-                } else {
+                }
+                else {
                     System.out.println("登陆失败");
                     System.out.println("正确的密码是" + users[i].getPassword());
                 }
