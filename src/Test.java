@@ -34,8 +34,8 @@ public class Test {
                         System.out.println("\t" + product.getDesc());
                         }
                     boolean bo1=true;
+                    Product products1[]=new Product[10];
                     while (bo1){
-                    Product products1[]=new Product[5];
                     System.out.println("请输入商品ID");
                     String pId=sc.next();
                     ReadProductExcel readProductExcel1=new ReadProductExcel();
@@ -59,6 +59,16 @@ public class Test {
                     String yn=sc.next();
                     if (yn.equals("yes"))
                     {
+                        inPro=null;
+                        inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        readProductExcel=new ReadProductExcel();
+                        products =readProductExcel.getAllProductExcel(inPro);
+                        for (Product product1:products) {
+                            System.out.print(product1.getId());
+                            System.out.print("\t" + product1.getProductname());
+                            System.out.print("\t" + product1.getPrice());
+                            System.out.println("\t" + product1.getDesc());
+                        }
                         bo1=true;
                     }
                     else {
