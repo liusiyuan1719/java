@@ -34,46 +34,55 @@ public class Test {
                         System.out.println("\t" + product.getDesc());
                         }
                     boolean bo1=true;
-                    Product products1[]=new Product[10];
+
                     while (bo1){
-                    System.out.println("请输入商品ID");
-                    String pId=sc.next();
-                    ReadProductExcel readProductExcel1=new ReadProductExcel();
-                    inPro=null;
-                    inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
-                    Product product=readProductExcel1.getProductById(pId,inPro);
-                    if(product!=null) {
-                        count++;
-                        products1[count] = product;
-                        System.out.println("找到了该商品");
-                        System.out.print(product.getId());
-                        System.out.print("\t" + product.getProductname());
-                        System.out.print("\t" + product.getPrice());
-                        System.out.println("\t" + product.getDesc());
-                        System.out.println("你购买的商品数量为" + count);
-                    }
-                    else {
-                        System.out.println("没有该商品");
-                    }
-                    System.out.println("是否继续购买商品，请输入yes or no");
-                    String yn=sc.next();
-                    if (yn.equals("yes"))
-                    {
+                        Product carts[]=new Product[10];
+                        System.out.println("请输入商品ID");
+                        String pId=sc.next();
+                        ReadProductExcel readProductExcel1=new ReadProductExcel();
                         inPro=null;
                         inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
-                        readProductExcel=new ReadProductExcel();
-                        products =readProductExcel.getAllProductExcel(inPro);
-                        for (Product product1:products) {
-                            System.out.print(product1.getId());
-                            System.out.print("\t" + product1.getProductname());
-                            System.out.print("\t" + product1.getPrice());
-                            System.out.println("\t" + product1.getDesc());
+                        Product product=readProductExcel1.getProductById(pId,inPro);
+                        if(product!=null) {
+                            count++;
+                            carts[count] = product;
+                            System.out.println("找到了该商品");
+                            System.out.print(product.getId());
+                            System.out.print("\t" + product.getProductname());
+                            System.out.print("\t" + product.getPrice());
+                            System.out.println("\t" + product.getDesc());
+
                         }
-                        bo1=true;
-                    }
-                    else {
-                        bo1=false;
-                    }
+                        else {
+                            System.out.println("没有该商品");
+                        }
+                        System.out.println("是否继续购买商品，请输入yes or no");
+                        String yn=sc.next();
+                        if (yn.equals("yes"))
+                        {
+                            inPro=null;
+                            inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                            readProductExcel=new ReadProductExcel();
+                            products =readProductExcel.getAllProductExcel(inPro);
+                            for (Product product1:products) {
+                                System.out.print(product1.getId());
+                                System.out.print("\t" + product1.getProductname());
+                                System.out.print("\t" + product1.getPrice());
+                                System.out.println("\t" + product1.getDesc());
+                            }
+                            bo1=true;
+                        }
+                        else {
+                            System.out.println("你购买的商品数量为" + count);
+                            for (int j=0;j<carts.length;j++){
+                                System.out.print(carts[j].getId());
+                                System.out.print("\t" + carts[j].getProductname());
+                                System.out.print("\t" + carts[j].getPrice());
+                                System.out.println("\t" + carts[j].getDesc());
+                            }
+
+                            bo1=false;
+                        }
                     }
                     bo=false;
                     break;
