@@ -6,15 +6,14 @@ public class Test {
 
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo=true;
+        boolean bo1=true;
         int money=0;
         int count =0;
-
         while (bo){
             System.out.println("请输入用户名:");
 
             Scanner sc=new Scanner(System.in);
             String uername=sc.next();
-
 
             System.out.println("请输入你的密码:");
             String password=sc.next();
@@ -27,23 +26,23 @@ public class Test {
             for (int i=0; i<users.length;i++) {
                 if (uername.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     System.out.println("登陆成功");
-                    ReadProductExcel readProductExcel=new ReadProductExcel();
-                    Product products[] =readProductExcel.getAllProductExcel(inPro);
-                    for (Product product:products) {
-                        System.out.print(product.getId());
-                        System.out.print("\t" + product.getProductname());
-                        System.out.print("\t" + product.getPrice());
-                        System.out.println("\t" + product.getDesc());
-                        }
-                    boolean bo1=true;
-                    Product carts[]=new Product[10];
+                    Product carts[]=new Product[20];
                     while (bo1){
-                        System.out.println("请输入商品ID");
-                        String pId=sc.next();
-                        ReadProductExcel readProductExcel1=new ReadProductExcel();
-
                         inPro=null;
                         inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        ReadProductExcel readProductExcel=new ReadProductExcel();
+                        Product products[] =readProductExcel.getAllProductExcel(inPro);
+                        for (Product product:products) {
+                            System.out.print(product.getId());
+                            System.out.print("\t" + product.getProductname());
+                            System.out.print("\t" + product.getPrice());
+                            System.out.println("\t" + product.getDesc());
+                        }
+                        System.out.println("请输入商品ID");
+                        String pId=sc.next();
+                        inPro=null;
+                        inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
+                        ReadProductExcel readProductExcel1=new ReadProductExcel();
                         Product product=readProductExcel1.getProductById(pId,inPro);
                         if(product!=null) {
                             count++;
@@ -62,6 +61,7 @@ public class Test {
                         String yn=sc.next();
                         if (yn.equals("yes"))
                         {
+                            /*
                             inPro=null;
                             inPro=Class.forName("Test").getResourceAsStream("/product.xlsx");
                             readProductExcel=new ReadProductExcel();
@@ -72,10 +72,22 @@ public class Test {
                                 System.out.print("\t" + product1.getPrice());
                                 System.out.println("\t" + product1.getDesc());
                             }
+                            */
                             bo1=true;
                         }
                         else {
                             System.out.println("你购买的商品数量为" + count);
+                            for (int j=0;j<=count;j++){
+                                if (carts[j]!=null) {
+                                    System.out.print(carts[j].getId());
+                                    System.out.print("\t" + carts[j].getProductname());
+                                    System.out.print("\t" + carts[j].getPrice());
+                                    System.out.println("\t" + carts[j].getDesc());
+                                    int num = Integer.parseInt(carts[j].getPrice());
+                                    money = money + num;
+                                }
+                            }
+                            /*
                             for (int j=0;j<carts.length;j++){
                                 if (carts[j]!=null) {
                                     System.out.print(carts[j].getId());
@@ -86,6 +98,7 @@ public class Test {
                                     money=money+num;
                                 }
                             }
+                            */
                             bo1=false;
                         }
                     }
@@ -100,6 +113,7 @@ public class Test {
                 else {
                     System.out.println("登陆失败");
                     System.out.println("正确的密码是" + users[i].getPassword());
+                    break;
                 }
             }
         }
