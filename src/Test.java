@@ -6,7 +6,9 @@ public class Test {
 
     public static void main(String[] args) throws ClassNotFoundException {
         boolean bo=true;
+        int money=0;
         int count =0;
+
         while (bo){
             System.out.println("请输入用户名:");
 
@@ -80,10 +82,17 @@ public class Test {
                                     System.out.print("\t" + carts[j].getProductname());
                                     System.out.print("\t" + carts[j].getPrice());
                                     System.out.println("\t" + carts[j].getDesc());
+                                    int num=Integer.parseInt(carts[j].getPrice());
+                                    money=money+num;
                                 }
                             }
                             bo1=false;
                         }
+                    }
+                    System.out.println("立即付款请输入 1 ，售后付款请输入 0");
+                    int yn2=sc.nextInt();
+                    if (yn2==1) {
+                        System.out.println("您需要付" + money + "元");
                     }
                     bo=false;
                     break;
