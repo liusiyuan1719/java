@@ -1,7 +1,7 @@
 public class Product {
     private String id;
     private String productname;
-    private String price;
+    private Float price;
     private String desc   ;
 
     public String getId() {
@@ -20,13 +20,9 @@ public class Product {
         this.productname = productname;
     }
 
-    public String getPrice() {
-        return price;
-    }
+    public void setPrice(Float price) { this.price = price; }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    public Float getPrice() { return price; }
 
     public String getDesc() {
         return desc;
