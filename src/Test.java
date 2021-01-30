@@ -1,7 +1,5 @@
 import java.io.InputStream;
-import java.util.Random;
 import java.util.Scanner;
-import java.io.File;
 
 public class Test {
     static int count = 0;
@@ -52,15 +50,16 @@ public class Test {
                             ReadProductExcel readProductExcel1=new ReadProductExcel();
                             Product product=readProductExcel1.getProductById(pId,inPro);
                             if(product!=null) {
-                                count++;
-                                carts[count] = product;
+                                carts[count++] = product;
                                 System.out.println("找到了该商品");
                                 System.out.print(product.getId());
                                 System.out.print("\t" + product.getProductname());
                                 System.out.print("\t" + product.getPrice());
                                 System.out.println("\t" + product.getDesc());
                                 float num = product.getPrice();
-                                money = money + num;
+                                System.out.println("请输入购买的商品数量");
+                                int c=sc.nextInt();
+                                money = money + num*c;
                             }
                             else {
                                 System.out.println("没有该商品");
@@ -69,7 +68,7 @@ public class Test {
                         else if (yn1==2){
                             System.out.println("你购买的商品数量为" + count);
 
-                            for (int j=0;j<=count;j++){
+                            for (int j=0;j<count;j++){
                                 if (carts[j]!=null) {
                                     System.out.print(carts[j].getId());
                                     System.out.print("\t" + carts[j].getProductname());
@@ -86,15 +85,16 @@ public class Test {
                             Product products[] =  new Product[count];
                             /*
                             实际买了2个商品，怎样把carts中的2个Product对象放入products
-                             */
+                            */
                             for(int h=0;h<count;h++){
-                                if(carts[h]!=null){
-                                    products[h]=carts[h];
-                                }
+                                products[h]=carts[h];
+
                             }
+
                             order.setProducts(products);//订单关联商品：实际上应该进行处理，把数组中为null的去除
                             //下订单（创建Excel）
-                            CreateOrder.createOrder(order);
+
+                            CreateOrderExcel.createOrder(order);
 
                         }
                         else if (yn1==4){
@@ -106,7 +106,7 @@ public class Test {
 
                 }
                 else if(i==(users.length-1)){
-                System.out.println("登陆失败");
+                    System.out.println("登陆失败");
             /*    System.out.println("正确的用户名是" + users[i].getUsername());
                 System.out.println("正确的密码是" + users[i].getPassword());
                 //测试密码

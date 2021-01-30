@@ -6,14 +6,13 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 
-public class CreateOrder {
-    /**
-     * Excel 文件要存放的位置，假定在F盘下
-     */
-    public static String outputFile = "D:\\1\\Orders.xls";
+public class CreateOrderExcel {
+
+    public static String outputFile = "D:\\1\\orders.xls";
 
     public static void createOrder(Order order) {
         try {
@@ -21,7 +20,6 @@ public class CreateOrder {
             // 创建新的Excel 工作簿
             HSSFWorkbook workbook = new HSSFWorkbook();
             // 在Excel工作簿中建一工作表，其名为缺省值
-            // 如要新建一名为"效益指标"的工作表，其语句为：
             HSSFSheet sheet = workbook.createSheet("订单");
 
             CellStyle style = workbook.createCellStyle();
@@ -59,7 +57,7 @@ public class CreateOrder {
                 }
             }
             // 新建一输出文件流
-            FileOutputStream fOut = new FileOutputStream(outputFile);
+            FileOutputStream fOut = new  FileOutputStream(outputFile);
             // 把相应的Excel 工作簿存盘
             workbook.write(fOut);
             fOut.flush();
